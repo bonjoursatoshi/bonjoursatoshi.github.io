@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Machine à Contenu — votre contenu publié chaque jour, sans vous</title>
+<meta name="description" content="Atelier d'automatisation : chaînes vidéo quotidiennes et pipelines de contenu clé en main. 60+ vidéos produites en 6 semaines, 0 minute humaine par vidéo.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<style>
+  :root {
+    --bg: #F3F5F4;
+    --panel: #FFFFFF;
+    --ink: #171F1C;
+    --ink-soft: #5A6660;
+    --line: #D8DEDA;
+    --accent: #C74E0C;
+    --accent-soft: #F6E5D9;
+    --mono-bg: #EAEEEC;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121715;
+      --panel: #1A211E;
+      --ink: #E9ECE9;
+      --ink-soft: #9AA69F;
+      --line: #2B3430;
+      --accent: #E8813F;
+      --accent-soft: #33241A;
+      --mono-bg: #202823;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121715;
+    --panel: #1A211E;
+    --ink: #E9ECE9;
+    --ink-soft: #9AA69F;
+    --line: #2B3430;
+    --accent: #E8813F;
+    --accent-soft: #33241A;
+    --mono-bg: #202823;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .mono { font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace; }
+  main { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem 5rem; }
+  a { color: var(--accent); }
+
+  .hero { padding: 4.5rem 0 3rem; }
+  .hero .kicker {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 1rem;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    font-weight: 800; letter-spacing: -.02em; line-height: 1.06;
+    margin: 0; text-wrap: balance; max-width: 18ch;
+  }
+  .hero p.sub { font-size: 1.15rem; color: var(--ink-soft); max-width: 52ch; margin: 1.3rem 0 0; }
+
+  .pipeline {
+    display: flex; align-items: center; gap: .5rem;
+    overflow-x: auto; padding: 1.6rem 0 .4rem;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .8rem; white-space: nowrap;
+  }
+  .pipeline .step {
+    background: var(--mono-bg); border: 1px solid var(--line);
+    padding: .45rem .8rem; border-radius: 4px;
+  }
+  .pipeline .step.hot { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .pipeline .arrow { color: var(--ink-soft); flex: none; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    margin: 2.5rem 0; border-radius: 6px; overflow: hidden;
+  }
+  .stat { background: var(--panel); padding: 1.1rem 1.2rem; }
+  .stat .n {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em;
+  }
+  .stat .l { font-size: .8rem; color: var(--ink-soft); margin-top: .15rem; }
+
+  section { margin: 4rem 0; }
+  h2 { font-size: 1.7rem; font-weight: 750; letter-spacing: -.015em; margin: 0 0 .4rem; text-wrap: balance; }
+  .section-sub { color: var(--ink-soft); margin: 0 0 1.6rem; max-width: 56ch; }
+
+  .offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; }
+  .offer {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+    padding: 1.4rem 1.4rem 1.2rem; display: flex; flex-direction: column; gap: .5rem;
+  }
+  .offer.flagship { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .offer .name { font-weight: 700; font-size: 1.05rem; }
+  .offer .price {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.6rem; font-weight: 700; color: var(--accent);
+  }
+  .offer .for { font-size: .8rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .08em; }
+  .offer ul { margin: .3rem 0 0; padding-left: 1.1rem; font-size: .92rem; color: var(--ink); }
+  .offer li { margin: .3rem 0; }
+  .offer .delay { margin-top: auto; padding-top: .8rem; font-size: .82rem; color: var(--ink-soft); }
+
+  .steps { counter-reset: s; display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: .4rem; }
+  .steps > div { position: relative; padding: 0 0 1.4rem 1.6rem; }
+  .steps > div::before {
+    counter-increment: s; content: counter(s);
+    position: absolute; left: -0.95rem; top: .05rem;
+    width: 1.7rem; height: 1.7rem; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent); color: var(--accent);
+    font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .8rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .steps b { display: block; }
+  .steps p { margin: .2rem 0 0; color: var(--ink-soft); font-size: .95rem; max-width: 55ch; }
+
+  .about { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 1.6rem 1.8rem; max-width: 44rem; }
+  .about p { margin: .6rem 0; }
+
+  .cta {
+    background: var(--ink); color: var(--bg);
+    border-radius: 10px; padding: 2.4rem 2rem; text-align: center; margin-top: 4rem;
+  }
+  .cta h2 { color: inherit; }
+  .cta p { opacity: .8; max-width: 46ch; margin: .6rem auto 1.4rem; }
+  .cta a.btn {
+    display: inline-block; background: var(--accent); color: #fff;
+    text-decoration: none; font-weight: 700; padding: .8rem 1.6rem; border-radius: 6px;
+  }
+  .cta a.btn:focus-visible { outline: 3px solid var(--bg); outline-offset: 2px; }
+  .cta .mail { display: block; margin-top: .9rem; font-size: .85rem; opacity: .7; }
+  footer { text-align: center; color: var(--ink-soft); font-size: .8rem; margin-top: 2.5rem; }
+</style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <p class="kicker">machine-à-contenu · atelier d'automatisation</p>
+    <h1>Votre contenu, publié chaque jour. Sans vous.</h1>
+    <p class="sub">Je construis des machines de production de contenu : l'actualité de votre secteur entre d'un côté, une vidéo montée, vérifiée, sous-titrée et publiée sort de l'autre. Tous les jours, sur toutes vos plateformes, pendant que vous faites votre métier.</p>
+    <div class="pipeline" aria-label="Étapes du pipeline automatisé">
+      <span class="step">actu du secteur</span><span class="arrow">→</span>
+      <span class="step">script IA</span><span class="arrow">→</span>
+      <span class="step hot">fact-check</span><span class="arrow">→</span>
+      <span class="step">voix off</span><span class="arrow">→</span>
+      <span class="step">montage vidéo</span><span class="arrow">→</span>
+      <span class="step hot">publication ×4</span>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n">60+</div><div class="l">vidéos produites en 6 semaines</div></div>
+    <div class="stat"><div class="n">7 j/7</div><div class="l">publication sans intervention</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">plateformes — YouTube, TikTok, Instagram, Telegram</div></div>
+    <div class="stat"><div class="n">2</div><div class="l">langues, à partir du même pipeline</div></div>
+    <div class="stat"><div class="n">0 min</div><div class="l">de travail humain par vidéo</div></div>
+  </div>
+
+  <section>
+    <h2>La preuve tourne en ce moment</h2>
+    <p class="section-sub">Ma propre chaîne, <strong>Bonjour Satoshi</strong> (actualité crypto quotidienne), est produite à 100 % par cette machine : veille des cours, rédaction du script, vérification des faits, graphiques de prix, voix off, montage 9:16, miniature, titre optimisé, publication et même la réponse aux commentaires. Une édition hebdomadaire de 10 minutes est assemblée chaque dimanche, automatiquement. Ce n'est pas une démo préparée — c'est un système en production, et je construis le vôtre sur la même base.</p>
+  </section>
+
+  <section>
+    <h2>Trois façons de commencer</h2>
+    <p class="section-sub">Prix fixes, périmètre fixe, pas de surprise. On commence petit, la machine grandit ensuite.</p>
+    <div class="offers">
+      <div class="offer">
+        <div class="for">Pour comprendre</div>
+        <div class="name">Audit d'automatisation</div>
+        <div class="price">250 €</div>
+        <ul>
+          <li>2 h sur votre production de contenu actuelle</li>
+          <li>Cartographie de ce qui est automatisable</li>
+          <li>Plan chiffré, actionnable même sans moi</li>
+        </ul>
+        <div class="delay">Livré sous 5 jours · déduit si on continue ensemble</div>
+      </div>
+      <div class="offer">
+        <div class="for">Pour déléguer une corvée</div>
+        <div class="name">Pipeline simple</div>
+        <div class="price">600 €</div>
+        <ul>
+          <li>Une tâche récurrente automatisée de bout en bout : newsletter de veille, déclinaison de posts, découpage long → shorts…</li>
+          <li>Installé chez vous, documenté, vous en êtes propriétaire</li>
+        </ul>
+        <div class="delay">Livré sous 2 semaines</div>
+      </div>
+      <div class="offer flagship">
+        <div class="for">Pour exister partout, chaque jour</div>
+        <div class="name">Chaîne clé en main</div>
+        <div class="price">2 000 €</div>
+        <ul>
+          <li>Votre « Bonjour Satoshi » : vidéos quotidiennes dans votre secteur, votre ton, votre marque</li>
+          <li>Fact-check intégré, publication multi-plateforme</li>
+          <li>Maintenance &amp; évolutions : 150–300 €/mois</li>
+        </ul>
+        <div class="delay">En production sous 3 semaines</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Comment on travaille</h2>
+    <p class="section-sub">Le déroulé est le même pour toutes les offres — court, cadré, sans réunion inutile.</p>
+    <div class="steps">
+      <div><b>Un appel de 30 minutes.</b><p>Vous me montrez comment le contenu se fait chez vous aujourd'hui. Je repère ce qui doit rester humain et ce qui ne devrait plus l'être.</p></div>
+      <div><b>Je construis, vous validez sur du réel.</b><p>Pas de maquettes : dès la première semaine, la machine produit de vraies pièces de contenu que vous corrigez. Vos retours règlent le ton, pas des specs.</p></div>
+      <div><b>La machine tourne chez vous.</b><p>Installée sur vos comptes, documentée, à vous. Je reste disponible en maintenance mensuelle si vous voulez qu'elle évolue.</p></div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2>Qui construit</h2>
+    <p>Moi, c'est Ari. Développeur, j'ai passé les derniers mois à construire et faire tourner des systèmes de production de contenu entièrement automatisés — génération de script, vérification factuelle, synthèse vocale, montage programmatique (Remotion), publication par API sur YouTube, TikTok, Instagram et Telegram.</p>
+    <p>Je ne vends pas un outil no-code assemblé en un week-end : je construis du logiciel sur mesure, que vous possédez, avec un garde-fou de vérification des faits — parce qu'une machine qui publie en votre nom n'a pas le droit de raconter n'importe quoi.</p>
+  </section>
+
+  <div class="cta">
+    <h2>Votre secteur a une actualité. Personne ne la raconte chaque jour.</h2>
+    <p>Racontez-moi votre métier en trois lignes ; je vous réponds sous 24 h avec ce que la machine pourrait publier pour vous dès ce mois-ci.</p>
+    <a class="btn" href="mailto:ari.code.gen@gmail.com?subject=Machine%20%C3%A0%20contenu">Écrire à Ari</a>
+    <span class="mail mono">ari.code.gen@gmail.com</span>
+  </div>
+
+  <footer>Machine à Contenu · Ari · Réponse sous 24 h</footer>
+</main>
+</body>
+</html>
