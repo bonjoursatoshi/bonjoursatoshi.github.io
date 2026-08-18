@@ -1,43 +1,69 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bonjour Satoshi — Ton point crypto du matin</title>
 <style>
   :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
   body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
-         background: #0d1117; color: #e6edf3; line-height: 1.6; }
-  main { max-width: 640px; margin: 0 auto; padding: 48px 24px; }
-  .logo { font-size: 56px; }
-  h1 { margin: 8px 0 4px; font-size: 32px; }
-  .tag { color: #f0b90b; font-weight: 600; margin: 0 0 24px; }
-  p { color: #b8c2cc; }
+         background: #0d1117; color: #e6edf3; line-height: 1.65; }
+  nav { display: flex; gap: 22px; flex-wrap: wrap; align-items: center;
+        max-width: 760px; margin: 0 auto; padding: 18px 24px;
+        border-bottom: 1px solid #21262d; font-size: 15px; }
+  nav a { color: #b8c2cc; text-decoration: none; }
+  nav a:hover, nav a.actif { color: #f0b90b; }
+  nav .marque { font-weight: 700; color: #f0b90b; margin-right: 8px; }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+  h1 { font-size: 30px; margin: 0 0 8px; }
+  h2 { font-size: 21px; margin: 34px 0 8px; }
+  p, li { color: #b8c2cc; }
   a { color: #58a6ff; text-decoration: none; }
   a:hover { text-decoration: underline; }
-  ul { padding-left: 20px; }
-  li { margin: 8px 0; }
-  footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #21262d;
-           font-size: 14px; color: #8b949e; }
-</style>
-</head>
-<body>
+  .tag { color: #f0b90b; font-weight: 600; margin: 0 0 22px; }
+  .carte { background: #161b22; border: 1px solid #21262d; border-radius: 10px;
+           padding: 18px 22px; margin: 14px 0; }
+  .carte h3 { margin: 0 0 6px; font-size: 17px; }
+  .carte p { margin: 0; font-size: 14.5px; }
+  .muted { color: #8b949e; font-size: 14px; }
+  footer { max-width: 760px; margin: 0 auto; padding: 26px 24px 44px;
+           border-top: 1px solid #21262d; font-size: 13.5px; color: #8b949e; }
+  footer a { color: #8b949e; }
+</style></head><body>
+<nav><span class="marque">🌅 Bonjour Satoshi</span><a href="index.html" class="actif">Accueil</a><a href="emissions.html">Les émissions</a><a href="outil.html">L'outil</a><a href="faq.html">FAQ</a></nav>
 <main>
-  <div class="logo">🌅</div>
-  <h1>Bonjour Satoshi</h1>
-  <p class="tag">Ton point crypto du matin, en 60 secondes.</p>
-  <p>Chaque matin, un short d'actualité crypto clair et sans jargon. Chaque lundi à 9h,
-  « La semaine crypto » : l'émission qui résume les 7 jours écoulés et la semaine à venir.
-  De l'information, jamais de conseil financier.</p>
-  <ul>
-    <li>📺 <a href="https://www.youtube.com/@BonjourSatoshi">YouTube — Bonjour Satoshi</a></li>
-    <li>📬 <a href="https://buttondown.com/bonjoursatoshi">La newsletter</a></li>
-  </ul>
-  <footer>
-    <a href="/tos.html">Conditions d'utilisation / Terms of Service</a> ·
-    <a href="/privacy.html">Confidentialité / Privacy Policy</a><br>
-    © 2026 Bonjour Satoshi — contact : ari.code.gen@gmail.com
-  </footer>
+
+<h1>Ton point crypto du matin</h1>
+<p class="tag">La crypto en 60 secondes, chaque jour — chiffres vérifiés, zéro blabla.</p>
+<p>Bonjour Satoshi est un média vidéo francophone d'actualité crypto. Chaque matin à 9h,
+un short d'une minute fait le point sur le marché : prix du Bitcoin, indicateurs,
+catalyseurs du jour. Chaque lundi, « La semaine crypto » déroule en quatre minutes la
+semaine écoulée et celle qui vient. Une déclinaison anglophone, « GM Satoshi », publie
+chaque après-midi pour le public nord-américain.</p>
+<div class="carte"><h3>📱 Le short quotidien</h3>
+<p>60 secondes chrono, publié chaque matin à 9h sur <a href="https://www.youtube.com/@BonjourSatoshi">YouTube</a>,
+Instagram et TikTok. Un présentateur animé, Sato, des chiffres sourcés en temps réel et un
+graphique des niveaux clés du Bitcoin.</p></div>
+<div class="carte"><h3>📺 La semaine crypto — chaque lundi</h3>
+<p>L'émission hebdomadaire : rétrospective, agenda des rendez-vous à venir, niveaux à
+surveiller et un dossier de fond. Avec ses rituels — la question de la semaine, le verdict
+du niveau, le meilleur commentaire à l'écran. <a href="emissions.html">Voir les épisodes →</a></p></div>
+<div class="carte"><h3>📬 La newsletter</h3>
+<p>La semaine crypto par email, gratuite — et une veille fiscale et réglementaire
+crypto pour la France et l'Europe. <a href="https://buttondown.com/bonjoursatoshi">S'inscrire →</a></p></div>
+<div class="carte"><h3>⚙️ Fabriqué par une rédaction automatisée</h3>
+<p>Les vidéos sont produites par notre propre outil de publication : données de marché en
+temps réel, script, voix et rendu — avec un fact-check systématique avant toute diffusion.
+<a href="outil.html">Comment ça marche →</a></p></div>
+<h2>Notre règle d'or</h2>
+<p>⚠️ Bonjour Satoshi informe et explique, mais ne conseille jamais : aucun conseil
+d'achat ou de vente, aucune promesse de gain, jamais. Cette règle est vérifiée
+automatiquement sur chaque vidéo avant publication.</p>
+
 </main>
-</body>
-</html>
+<footer>
+  <a href="tos.html">Conditions d'utilisation</a> · <a href="privacy.html">Confidentialité</a> ·
+  <a href="https://www.youtube.com/@BonjourSatoshi">YouTube FR</a> ·
+  <a href="https://www.youtube.com/channel/UCiOz7jaHmDoPQOBBNjr5PJA">YouTube EN</a> ·
+  <a href="https://buttondown.com/bonjoursatoshi">Newsletter</a><br>
+  © 2026 Bonjour Satoshi — information uniquement, jamais de conseil financier · contact : ari.code.gen@gmail.com
+</footer>
+</body></html>
